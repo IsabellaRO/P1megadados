@@ -4,16 +4,16 @@
 Uma aplicação feita com o objetivo de gerenciar os eventos, alunos e funcionários de uma empresa de educação e tecnologia que está começando no mercado, chamada TechEdu.
 
 ## Funcionalidades:
-Cadastrar:
-professores e suas habilidades;
-eventos que o TechEdu participa;
-workshops que o TechEdu oferece;
-alunos que pretendem participar dos workshops;
+- Cadastrar:
+- professores e suas habilidades;
+- eventos que o TechEdu participa;
+- workshops que o TechEdu oferece;
+- alunos que pretendem participar dos workshops;
 
 ## Listar:
-quais alunos participarão de cada aula (aula = workshop que faz parte de um evento);
-quais professores são aptos a dar quais workshops, quais aulas eles darão e em quais eventos eles estarão presentes;
-workshops de um evento e quantas vezes um mesmo workshop já foi realizado;
-eventos que um mesmo workshop será oferecido;
-alunos impactados por cada professor;
-habilidades adquiridas por cada aluno (de acordo com os workshops que ele participou ou participará).
+- quais alunos participarão de cada aula (aula = workshop que faz parte de um evento);
+- quais professores são aptos a dar quais workshops, quais aulas eles darão e em quais eventos eles estarão presentes;
+- workshops de um evento e quantas vezes um mesmo workshop já foi realizado;
+- eventos que um mesmo workshop será oferecido;
+- alunos impactados por cada professor;
+- habilidades adquiridas por cada aluno (de acordo com os workshops que ele participou ou participará).

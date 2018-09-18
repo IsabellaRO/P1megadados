@@ -1,10 +1,10 @@
-INSERT Alunos (nome, nascimento, projeto, colégio)
+INSERT Alunos (nome, nascimento, projeto, colegio)
 VALUES ("Beatriz Fonseca Guimarães", "2004/05/02", "Ismart Online", "EMEF Tarsila do Amaral");
 
-INSERT Alunos (nome, nascimento, projeto, colégio)
+INSERT Alunos (nome, nascimento, projeto, colegio)
 VALUES ("Lucas", "1996/05/02", "Ismart Online", "Lourenço Castanho");
 
-INSERT Alunos (nome, nascimento, projeto, colégio)
+INSERT Alunos (nome, nascimento, projeto, colegio)
 VALUES ("Isabella", "2000/05/02", "Ismart Online", "Insper");
 
 

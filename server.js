@@ -7,19 +7,20 @@ const port = 3000;
 const router = express.Router();
 
 const connection = mysql.createConnection({
-  host: "localhost",
-  user: "root",
-  password: "8888",
-  database: "dbtechedu"
+    host: "localhost",
+    user: "root",
+    password: "8888",
+    database: "dbtechedu"
 })
 
 
 app.get("/alunos", function (req, res) {
     connection.query("SELECT * FROM Alunos", function (error, results, fields) {
-      if (error) throw error;
-      const alunos = results;
-    //   console.log(Alunos)
-      res.json(results)
+        if (error) throw error;
+        const alunos = results;
+        //   console.log(Alunos)
+        res.sendFile('views/index.html' , { root : __dirname});
+        // res.sendfile("views/index.html");
     })
 })
 
@@ -38,9 +39,6 @@ app.get("/eventos", function (req, res) {
 app.get("/professores", function (req, res) {
     //Getting key
     let key = req.query.key;
-    console.log(key);
-    console.log(typeof(key))
-    console.log(typeof(parseFloat(key)));
 
     // connection.query("SELECT * FROM Professores", function (error, results, fields) {
     //   if (error) throw error;
@@ -58,17 +56,17 @@ app.get("/professores", function (req, res) {
 
 app.get("/aulas", function (req, res) {
     connection.query("SELECT * FROM Aulas", function (error, results, fields) {
-      if (error) throw error;
-      const professores = results;
-      res.json(results)
+        if (error) throw error;
+        const professores = results;
+        res.json(results)
     })
 })
 
 app.get("/workshops", function (req, res) {
     connection.query("SELECT * FROM Workshops", function (error, results, fields) {
-      if (error) throw error;
-      const professores = results;
-      res.json(results)
+        if (error) throw error;
+        const professores = results;
+        res.json(results)
     })
 })
 

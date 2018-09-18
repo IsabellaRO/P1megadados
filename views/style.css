@@ -1,0 +1,96 @@
+@charset "UTF-8";
+
+body {
+	background-color: #EEEEEE;
+	padding: 20px 20px 10px 20px;
+	margin-top: 30px;
+	text-align: center;
+	color: #333;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+input {
+	padding: 12px 20px;
+	background-color: #EEEEEE;
+	margin: 8px 0;
+	box-sizing: border-box;
+	border: none;
+	border-bottom: 3px solid #ccc;
+	-webkit-transition: 0.5s;
+	transition: 0.5s;
+	outline: none;
+	color: #333;
+	font-size: 16px;
+}
+
+input:focus {
+	border-bottom: 3px solid #555;
+}
+
+table {
+	color: #333;
+	font-family: Helvetica, Arial, sans-serif;
+	width: 800px;
+	border-collapse: collapse;
+	border-spacing: 0;
+	border: 2px solid #333;
+}
+
+
+h1, h2, title {
+	color: #333;
+	font-family: Helvetica, Arial, sans-serif;
+}
+
+button, input[type=submit], a {
+	padding: 10px 22px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 13px;
+	margin: 4px 2px;
+	-webkit-transition-duration: 0.4s; /* Safari */
+	transition-duration: 0.4s;
+	cursor: pointer;
+	background-color: white;
+	color: #333;
+	border: 2px solid #babdb6;
+}
+
+button:hover, input[type=submit]:hover, a:hover {
+	background: #666;
+	color: #FFF;
+}
+
+td, th {
+	border: 1px solid transparent; /* No more visible border */
+	height: 30px;
+	transition: all 0.3s; /* Simple transition for hover effect */
+}
+
+th {
+	background: #DFDFDF; /* Darken header a bit */
+	font-weight: bold;
+}
+
+td {
+	background: #FAFAFA;
+	text-align: center;
+}
+
+/* Cells in even rows (2,4,6...) are one color */
+tr:nth-child(even) td {
+	background: #F1F1F1;
+}
+
+/* Cells in odd rows (1,3,5...) are another (excludes header cells)  */
+tr:nth-child(odd) td {
+	background: #FEFEFE;
+}
+
+tr td:hover {
+	background: #666;
+	color: #FFF;
+}
+/* Hover cell effect! */
+

@@ -43,7 +43,7 @@ CREATE TABLE Alunos (
     nome VARCHAR(80) NOT NULL,
     nascimento DATE,
     projeto VARCHAR(80),
-    colégio VARCHAR(80),
+    colegio VARCHAR(80),
     idAula INT,
     PRIMARY KEY (idAluno)
 );

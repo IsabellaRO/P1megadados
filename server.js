@@ -1,8 +1,13 @@
 const express = require('express');
 const mysql = require('mysql');
 const app = express();
+const bodyParser = require("body-parser");
 const port = 3000;
 
+app.use(bodyParser.urlencoded({
+    extended: false
+}));
+app.use(bodyParser.json());
 
 const router = express.Router();
 
@@ -14,14 +19,31 @@ const connection = mysql.createConnection({
 })
 
 
-app.get("/alunos", function (req, res) {
+app.get("/addaluno", function (req, res) {
     connection.query("SELECT * FROM Alunos", function (error, results, fields) {
         if (error) throw error;
         const alunos = results;
         //   console.log(Alunos)
         res.sendFile('views/addAluno.html' , { root : __dirname});
-        // res.sendfile("views/index.html");
+       // res.sendfile("views/index.html");
     })
+})
+
+app.post("/addaluno", function (req, res) {
+    var nome = req.body.nome;
+    var nascimento = req.body.nascimento;
+    var projeto = req.body.projeto;
+    var colegio = req.body.colegio;
+    console.log(nome, nascimento, projeto, colegio)
+    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+        // if (error) throw error;
+        // const alunos = results;
+        //   console.log(Alunos)
+        // res.sendFile('views/index.html', {
+            // root: __dirname
+        // });
+        // res.sendfile("views/index.html");
+    // })
 })
 
 app.get("/eventos", function (req, res) {

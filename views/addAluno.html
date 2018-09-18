@@ -1,18 +1,18 @@
 <!DOCTYPE html>
 <html>
+<<<<<<< HEAD
   <head>
     <title>Adicionar novo aluno</title>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
     <script>
       $(document).ready(function(){
-        var nome, nascimento, projeto, colegio, idAula;
+        var nome, nascimento, projeto, colegio;
         $("#submit").click(function(){
           nome=$("#nome").val();
           nascimento=$("#nascimento").val();
           projeto=$("#projeto").val();
           colegio=$("#colegio").val();
-          idAula=$("#idAula").val();
-          $.post("http://localhost:3000/addaluno",{nome: nome, nascimento: nascimento, projeto: projeto, colegio: colegio, idAula: idAula}, function(data){
+          $.post("http://localhost:3000/addaluno",{nome: nome, nascimento: nascimento, projeto: projeto, colegio: colegio}, function(data){
             if(data==='done')
               {
                 alert("add success");

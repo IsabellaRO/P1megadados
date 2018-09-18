@@ -9,7 +9,7 @@ const router = express.Router();
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "8888",
+    password: "rangobom971025",
     database: "dbtechedu"
 })
 
@@ -19,7 +19,7 @@ app.get("/alunos", function (req, res) {
         if (error) throw error;
         const alunos = results;
         //   console.log(Alunos)
-        res.sendFile('views/index.html' , { root : __dirname});
+        res.sendFile('views/addAluno.html' , { root : __dirname});
         // res.sendfile("views/index.html");
     })
 })

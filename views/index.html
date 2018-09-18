@@ -1,14 +1,17 @@
 <html>
-  <head>
+
+<head>
     <title>Simple login</title>
-    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"> </script>
     <script>
-      $(document).ready(function(){
-        var user,pass;
+        $(document).ready(function(){
+        var nome,nascimento,projeto,colegio;
         $("#submit").click(function(){
-          user=$("#user").val();
-          pass=$("#password").val();
-          $.post("http://localhost:3000/login",{user: user,password: pass}, function(data){
+          nome=$("#nome").val();
+          nascimento=$("#nascimento").val();
+          projeto=$("#projeto").val();
+          colegio=$("#colegio").val();
+          $.post("http://localhost:3000/alunos",{nome: nome,nascimento: nascimento,projeto: projeto,colegio : colegio}, function(data){
             if(data==='done')
               {
                 alert("login success");
@@ -17,13 +20,15 @@
         });
       });
     </script>
-  </head>
-  <body>
+</head>
+
+<body>
     <h1>Add aluno!</h1>
     <input type="TEXT" id="nome" size="40" placeholder="Nome completo do aluno"><br>
     <input type="TEXT" id="nascimento" size="40" placeholder="YYYY/MM/DD"><br>
     <input type="TEXT" id="projeto" size="40" placeholder="Projeto do aluno"><br>
     <input type="TEXT" id="colegio" size="40" placeholder="Colégio do aluno"><br>
     <input type="button" id="submit" value="Submit">
-  </body>
+</body>
+
 </html>

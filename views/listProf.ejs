@@ -14,31 +14,20 @@
             <th>Curso</th>
             <th>Semestre</th>
             <th>Avaliação</th>
-<<<<<<< HEAD
         </tr>
         <% for(var i = 0; i < nome.length; i++) {%>
         <tr>
             <td><%= cpf[i]%></td>
-=======
-            <th>Ações</th>
-        </tr>
-        <% for(var i = 0; i < nome.length; i++) {%>
-        <tr>
-            <td><%= CPF[i]%></td>
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
             <td><%= nome[i]%></td>
             <td><%= orgao[i]%></td>
             <td><%= curso[i]%></td>
             <td><%= semestre[i]%></td>
             <td><%= avaliacao[i]%></td>
             <td>
-<<<<<<< HEAD
-                <a class="a-inside edit" href="/editAluno/<%=cpf[i]%>">Editar</a>
-=======
-                <a class="a-inside edit" href="/editAluno/<%=CPF[i]%>">Editar</a>
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
+                <a href="/editprof/<%=cpf[i]%>">Editar</a>
                
-                <a class="a-inside delete" href="javascript:void(0)" onClick="deleteAluno(<%=id[i]%>)">Deletar</a>
+                <a href="/delprof/?cpf<%=cpf[i]%>">Deletar</a>
+                <a href="/listalunosimpac/?cpf=<%=cpf[i]%>">Ver alunos impactados</a>
                
             </td>
         </tr>

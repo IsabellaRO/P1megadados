@@ -8,6 +8,7 @@
 <div class="data-table">
     <table border="1" cellpadding="7" cellspacing="7" align="center">
         <tr>
+            <th>Id do Aluno</th>
             <th>Nome do aluno</th>
             <th>Data de nascimento</th>
             <th>Projeto</th>
@@ -16,21 +17,21 @@
         </tr>
         <% for(var i = 0; i < alunos.length; i++) {%>
         <tr>
+                <td><%= id[i]%></td>
             <td><%= alunos[i]%></td>
             <td><%= nascimento[i]%></td>
             <td><%= projeto[i]%></td>
             <td><%= colégio[i]%></td>
             <td>
-                <a class="a-inside edit" href="/editAluno/<%=id[i]%>">Editar</a>
+                <a href="/editAluno/<%=id[i]%>">Editar</a>
                
-                <a class="a-inside delete" href="javascript:void(0)" onClick="deleteAluno(<%=id[i]%>)">Deletar</a>
+                <a href="/delaluno/?idal=<%=id[i]%>" >Deletar</a>
                
             </td>
         </tr>
         <% } %>
     </table>
     </div>
-        </form>
 </div>
 
 <div class="page-data">
@@ -69,7 +70,7 @@
     function deleteAluno(user_id){
     
         $.ajax({
-            url:"/delalunos/?idal"+user_id,
+            url:"/delalunos/?idal="+user_id,
             type: 'POST',
             success: function(res) {
                 

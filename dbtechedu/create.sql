@@ -25,7 +25,7 @@ CREATE TABLE Workshops (
 
 DROP TABLE IF EXISTS Professores;
 CREATE TABLE Professores (
-	CPF BIGINT UNIQUE,
+	cpf BIGINT UNIQUE,
     nome VARCHAR(80) NOT NULL,
     rg INT,
 	orgao VARCHAR(10),
@@ -34,7 +34,7 @@ CREATE TABLE Professores (
     idWorkshop INT,
     idAula INT,
     avaliacao FLOAT,
-    PRIMARY KEY (CPF)
+    PRIMARY KEY (cpf)
 );
 
 DROP TABLE IF EXISTS Alunos;
@@ -43,7 +43,7 @@ CREATE TABLE Alunos (
     nome VARCHAR(80) NOT NULL,
     nascimento DATE,
     projeto VARCHAR(80),
-    colegio VARCHAR(80),
+    colégio VARCHAR(80),
     idAula INT,
     PRIMARY KEY (idAluno)
 );
@@ -86,5 +86,5 @@ CREATE TABLE Habilidades (
     FOREIGN KEY (idWorkshop)
 		REFERENCES Workshops(idWorkshop),
 	FOREIGN KEY (idProfessor)
-		REFERENCES Professores(CPF)
+		REFERENCES Professores(cpf)
 );

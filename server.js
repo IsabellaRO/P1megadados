@@ -15,25 +15,27 @@ const router = express.Router();
 const connection = mysql.createConnection({
     host: "localhost",
     user: "root",
-    password: "rangobom971025",
+    password: "8888",
     database: "dbtechedu"
 })
 
 app.get('/', function (req, res) {
-    res.sendFile('views/main.html' , { root : __dirname});
- });
+    res.sendFile('views/main.html', {
+        root: __dirname
+    });
+});
 
 
 
 ////////// CREATES
 app.get("/addaluno", function (req, res) {
-    connection.query("SELECT * FROM Alunos", function (error, results, fields) {
-        if (error) throw error;
-        const alunos = results;
-        //   console.log(Alunos)
-        res.sendFile('views/addAluno.html', {
-            root: __dirname
-        });
+    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+    //     if (error) throw error;
+    //     const alunos = results;
+    //   console.log(Alunos)
+    res.sendFile('views/addAluno.html', {
+        root: __dirname
+        // });
         // res.sendfile("views/index.html");
     })
 })
@@ -46,18 +48,18 @@ app.post("/addaluno", function (req, res) {
         colégio: req.body.colegio
     };
     console.log(novo_aluno)
-    
-    connection.query("INSERT INTO Alunos SET ?",     novo_aluno, function (error, results, fields) {   
+
+    connection.query("INSERT INTO Alunos SET ?", novo_aluno, function (error, results, fields) {
         if (error) throw error;
     });
     res.redirect('/listalunos');
 })
 
-app.post("/delaluno", function (req, res) {
-    let id = req.query.idal;
+app.get("/delaluno", function (req, res) {
+    let idal = req.query.idal;
     console.log(idal)
-    
-    connection.query("DELETE FROM Alunos WHERE idAluno = ?", idal, function (error, results, fields) {   
+
+    connection.query("DELETE FROM Alunos WHERE idAluno = ?", idal, function (error, results, fields) {
         if (error) throw error;
     });
     res.redirect('/listalunos');
@@ -78,7 +80,7 @@ app.get("/addprofessor", function (req, res) {
 app.post("/addprofessor", function (req, res) {
     var novo_professor = {
         nome: req.body.nome,
-        CPF: req.body.CPF,
+        cpf: req.body.cpf,
         rg: req.body.rg,
         orgao: req.body.orgao,
         curso: req.body.curso,
@@ -86,15 +88,25 @@ app.post("/addprofessor", function (req, res) {
         avaliacao: req.body.avaliacao
     };
     console.log(novo_professor)
-    
-    connection.query("INSERT INTO Professores SET ?", novo_professor, function (error, results, fields) {   
+
+    connection.query("INSERT INTO Professores SET ?", novo_professor, function (error, results, fields) {
         if (error) throw error;
         //res.redirect('listprofessores');
     });
 })
 
+app.get("/delprof", function (req, res) {
+    let cpf = req.query.cpf;
+    console.log(cpf)
+
+    connection.query("DELETE FROM Professores WHERE cpf = ?", cpf, function (error, results, fields) {
+        if (error) throw error;
+    });
+    res.redirect('/listaprofessores');
+})
+
 app.get("/addevento", function (req, res) {
-        connection.query("SELECT * FROM Eventos", function (error, results, fields) {
+    connection.query("SELECT * FROM Eventos", function (error, results, fields) {
         if (error) throw error;
         const eventos = results;
         //   console.log(Alunos)
@@ -107,14 +119,14 @@ app.get("/addevento", function (req, res) {
 
 app.post("/addevento", function (req, res) {
     var novo_evento = {
-    nome: req.body.nome,
-    endereco: req.body.endereco,
-    diaehora: req.body.diaehora,
-    duracao: req.body.duracao
+        nome: req.body.nome,
+        endereco: req.body.endereco,
+        diaehora: req.body.diaehora,
+        duracao: req.body.duracao
     };
     console.log(novo_evento)
-    
-    connection.query("INSERT INTO Eventos SET ?", novo_evento, function (error, results, fields) {   
+
+    connection.query("INSERT INTO Eventos SET ?", novo_evento, function (error, results, fields) {
         if (error) throw error;
         //res.redirect('listeventos');
     });
@@ -135,14 +147,14 @@ app.get("/addworkshop", function (req, res) {
 
 app.post("/addworkshop", function (req, res) {
     var novo_workshop = {
-    nome: req.body.nome,
-    objetivos: req.body.objetivos,
-    duracao: req.body.duracao
+        nome: req.body.nome,
+        objetivos: req.body.objetivos,
+        duracao: req.body.duracao
     };
     console.log(novo_workshop)
-    
+
     connection.query("INSERT INTO Workshops SET ?", novo_workshop, function (error, results, fields) {
-    //res.redirect('listworkshops');
+        //res.redirect('listworkshops');
     });
 })
 
@@ -183,33 +195,74 @@ app.get("/listalunos", function (req, res) {
     })
 })
 
-<<<<<<< HEAD
-app.get("/listaeventos", function (req, res) {
-    connection.query("SELECT * FROM Eventos", function (error, results, fields) {
+
+app.get("/listalunosimpac", function (req, res) {
+    let cpf = req.query.cpf;
+    connection.query(`SELECT DISTINCT AulaAluno.idAluno FROM
+    AulaAluno    INNER JOIN Professores ON AulaAluno.idAula = Professores.idAula
+                 INNER JOIN Alunos ON AulaAluno.idAula = Alunos.idAula
+                 WHERE Professores.cpf = ?`, cpf, function (error, results, fields) {
         if (error) throw error;
-        const eventos = results;
-        // console.log(eventos[0]['diaehora']);
-        let ano = eventos[0]['diaehora'];
-        console.log(ano.getFullYear());
-        res.json(results)
-        //let x = new Date(2004-05-02T03:00:00.000Z);
+        // console.log(results);
+
+        id = [];
+        for (var i = 0; i < results.length; i++) {
+            id.push(results[i].idAluno);
+        }
+        console.log(id);
+
+        connection.query('SELECT * FROM Alunos WHERE idAluno IN (?)', [id], function (error, results, fields) {
+
+
+            var alunos = [];
+            var nascimento = [];
+            var projeto = [];
+            var colégio = [];
+            var idAula = [];
+
+            for (var i = 0; i < results.length; i++) {
+                alunos.push(results[i].nome);
+                var date = new Date(results[i].nascimento);
+                var year = date.getFullYear();
+                var month = date.getMonth() + 1 //getMonth is zero based;
+                var day = date.getDate();
+                var nascformat = day + "/" + month + "/" + year;
+                nascimento.push(nascformat);
+                projeto.push(results[i].projeto);
+                colégio.push(results[i].colégio);
+                idAula.push(results[i].idAula);
+            }
+            console.log(alunos, nascimento, projeto, colégio);
+            res.render('listAlunos', {
+                id: id,
+                alunos: alunos,
+                nascimento: nascimento,
+                projeto: projeto,
+                colégio: colégio
+            });
+        })
+    })
+
+    app.get("/listaeventos", function (req, res) {
+        connection.query("SELECT * FROM Eventos", function (error, results, fields) {
+            if (error) throw error;
+            const eventos = results;
+            // console.log(eventos[0]['diaehora']);
+            let ano = eventos[0]['diaehora'];
+            console.log(ano.getFullYear());
+            res.json(results)
+            //let x = new Date(2004-05-02T03:00:00.000Z);
+        })
     })
 })
 
-=======
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
 app.get("/listaprofessores", function (req, res) {
     //Getting key
     // let key = req.query.key;
     connection.query("SELECT * FROM Professores", function (error, results, fields) {
         if (error) throw error;
 
-<<<<<<< HEAD
         var cpf = [];
-=======
-        var id = [];
-        var CPF = [];
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
         var nome = [];
         var rg = [];
         var orgao = [];
@@ -220,12 +273,7 @@ app.get("/listaprofessores", function (req, res) {
         var avaliacao = [];
 
         for (var i = 0; i < results.length; i++) {
-<<<<<<< HEAD
             cpf.push(results[i].cpf);
-=======
-            id.push(results[i].idAluno);
-            CPF.push(results[i].CPF);
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
             nome.push(results[i].nome);
             orgao.push(results[i].orgao);
             curso.push(results[i].curso);
@@ -238,17 +286,12 @@ app.get("/listaprofessores", function (req, res) {
         //   const professores = results;
         //   res.json(results)
         // })
-    // connection.query(`SELECT * FROM Professores WHERE avaliacao > ${parseFloat(key)}`, function (error, results, fields) {
+        // connection.query(`SELECT * FROM Professores WHERE avaliacao > ${parseFloat(key)}`, function (error, results, fields) {
         // const professores = results;
         // console.log(professores);
         // res.json(results)
         res.render('listProf', {
-<<<<<<< HEAD
             cpf: cpf,
-=======
-            id: id,
-            CPF: CPF,
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
             nome: nome,
             orgao: orgao,
             curso: curso,
@@ -260,59 +303,53 @@ app.get("/listaprofessores", function (req, res) {
     })
 })
 
-<<<<<<< HEAD
-app.get("/listaaulas", function (req, res) {
-    connection.query("SELECT * FROM Aulas", function (error, results, fields) {
-=======
+// app.get("/listaaulas", function (req, res) {
+//     connection.query("SELECT * FROM Aulas", function (error, results, fields) {
 //////// UPDATE
-app.get(function(req,res,next){
+// app.get(function(req,res,next){
 
-    var user_id = req.params.idAluno;
-    connection.query("SELECT * FROM Alunos WHERE idAluno = ? ",[user_id],function(err,rows){
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
-        if (error) throw error;
-        res.render('edit',{title:"Edit user",data:rows});
-        });
+//     var user_id = req.params.idAluno;
+//     connection.query("SELECT * FROM Alunos WHERE idAluno = ? ",[user_id],function(err,rows){
+//         if (error) throw error;
+//         res.render('edit',{title:"Edit user",data:rows});
+//         });
 
-<<<<<<< HEAD
-app.get("/listaworkshops", function (req, res) {
-    connection.query("SELECT * FROM Workshops", function (error, results, fields) {
-=======
-    });
+// app.get("/listaworkshops", function (req, res) {
+//     connection.query("SELECT * FROM Workshops", function (error, results, fields) {
+//     });
 
-app.post(function(req,res,next){
-    var user_id = req.params.user_id;
-    var data = {
-        nome: req.body.nome,
-        nascimento: req.body.nascimento,
-        projeto: req.body.projeto,
-        colégio: req.body.colégio
-     };
+// app.post(function(req,res,next){
+//     var user_id = req.params.user_id;
+//     var data = {
+//         nome: req.body.nome,
+//         nascimento: req.body.nascimento,
+//         projeto: req.body.projeto,
+//         colégio: req.body.colégio
+//      };
 
-    if (error) throw error;
+//     if (error) throw error;
 
-    connection.query("UPDATE Alunos set ? WHERE user_id = ? ",[data,user_id], function(err, rows){
+//     connection.query("UPDATE Alunos set ? WHERE user_id = ? ",[data,user_id], function(err, rows){
 
-    if (error) throw error;
+//     if (error) throw error;
 
-    res.redirect('listalunos');
+//     res.redirect('listalunos');
 
-    });
-});
+//     });
+// });
 
-///////  DELETE
-app.post(function(req,res,next){
-    var id = req.params.idAluno;
-    console.log("IDDDDDD:", id)
+// ///////  DELETE
+// app.post(function(req,res,next){
+//     var id = req.params.idAluno;
+//     console.log("IDDDDDD:", id)
 
-    connection.query("DELETE FROM Alunos WHERE idAluno = ? ", id, function(err, rows){
->>>>>>> 3044114afff26c8f8aded73859734a3cb09a2c01
-        if (error) throw error;
-        res.sendStatus(200);
-    });
+//     connection.query("DELETE FROM Alunos WHERE idAluno = ? ", id, function(err, rows){
+//         if (error) throw error;
+//         res.sendStatus(200);
+//     });
 
-    res.redirect('listalunos');
-});
+//     res.redirect('listalunos');
+// });
 
 
 app.listen(port, function () {

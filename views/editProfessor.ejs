@@ -1,24 +1,30 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title>< Editar aluno</title>
+        <title>< Editar professor</title>
         <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
         <link rel="stylesheet" href="/../css/style.css">
     </head>
 <body>
-<form method="post" action="" action="editaluno/?id=<%=id%>">
+<form method="post" action="" action="editprof/?CPF=<%=id%>">
     <table cellpadding="11">
     <tr>
         <td class="label">Nome</td><td>: <input type="text" name="nome" value=""></td>
      </tr>
-    <tr>
-        <td class="label">Nascimento</td><td>: <input type="text" name="nascimento" value=""></td>
+      <tr>
+        <td class="label">RG</td><td>: <input type="text" name="rg" value=""></td>
      </tr>
       <tr>
-        <td class="label">Projeto</td><td>: <input type="text" name="projeto" value=""></td>
+        <td class="label">Órgão Emissor</td><td>: <input type="text" name="orgao" value=""></td>
      </tr>
       <tr>
-        <td class="label">Colégio</td><td>: <input type="text" name="colégio" value=""></td>
+        <td class="label">Curso</td><td>: <input type="text" name="curso" value=""></td>
+     </tr>
+      <tr>
+        <td class="label">Semestre</td><td>: <input type="text" name="semestre" value=""></td>
+     </tr>
+      <tr>
+        <td class="label">Avaliação</td><td>: <input type="text" name="avaliacao" value=""></td>
      </tr>
      <tr>
         <td class="label"></td>
@@ -27,23 +33,23 @@
      </tr>
     </table>
     <input type="submit" id="submit" value="Salvar">
-</form>
+</form> 
 <p>
-    <form method="get" action="/listalunos">
+    <form method="get" action="/listaprofessores">
       <button type="submit">Página Inicial</button>
     </form>
  <script>
     
-        function editAluno(){
+        function editProfessor(){
            
            $.ajax({
             
-            url:"/listalunos/"+<%=id%>,
+            url:"/listaprofessores/"+<%=id%>,
             type:"put",
             data:$("#the-form").serialize(),
             success:function(res){
                 
-                window.location.href = '/listalunos';
+                window.location.href = '/listaprofessores';
                 return false;
             },
             error:function(xhr, status, error){

@@ -5,16 +5,16 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
     <script>
       $(document).ready(function(){
-        var nome, cpf, rg, orgao, curso, semestre, avaliacao;
+        var nome, CPF, rg, orgao, curso, semestre, avaliacao;
         $("#submit").click(function(){
           nome=$("#nome").val();
-          cpf=$("#cpf").val();
+          CPF=$("#CPF").val();
           rg=$("#rg").val();
           orgao=$("#orgao").val();
           curso=$("#curso").val();
           semestre=$("#semestre").val();
           avaliacao=$("#avaliacao").val();
-          $.post("http://localhost:3000/addprofessor",{nome: nome, cpf: cpf, rg: rg, orgao: orgao, curso: curso, semestre: semestre, avaliacao: avaliacao}, function(data){
+          $.post("http://localhost:3000/addprofessor",{nome: nome, CPF: CPF, rg: rg, orgao: orgao, curso: curso, semestre: semestre, avaliacao: avaliacao}, function(data){
             if(data==='done')
               {
                 alert("add success");
@@ -29,8 +29,8 @@
     <label for="nome"> Nome</label><br>
     <input type="TEXT" name="nome" id="nome" size="40" placeholder="Nome completo"><br>
 
-    <label for="cpf">CPF</label><br>
-    <input type="number" name="cpf" id="cpf" size="40" placeholder="cpf, apenas números"><br>
+    <label for="CPF">CPF</label><br>
+    <input type="number" name="CPF" id="CPF" size="40" placeholder="CPF, apenas números"><br>
 
     <label for="rg">RG</label><br>
     <input type="number" name="rg" id="rg" size="40" placeholder="RG, apenas números"><br>
@@ -46,12 +46,11 @@
 
     <label for="avaliacao">Avaliação</label><br>
     <input type="number" name="avaliacao" id="avaliacao" size="40" placeholder="Avaliação média do professor"><br>
-
     <br>
-    <input type="button" id="submit" value="Salvar">
+    <input type="button" id="submit" value="Salvar" href="/listalunos">
     <p>
     <form method="get" action="/">
-      <button type="submit">Cancelar</button>
+      <button type="submit">Página Inicial</button>
     </form>
   </body>
 </html>

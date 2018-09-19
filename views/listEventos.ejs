@@ -8,36 +8,28 @@
 <div class="data-table">
     <table border="1" cellpadding="7" cellspacing="7" align="center">
         <tr>
-            <th>CPF do professor</th>
-            <th>Nome</th>
-            <th>RG</th>
-            <th>Órgão</th>
-            <th>Curso</th>
-            <th>Semestre</th>
-            <th>Avaliação</th>
-            <th>Ações</th>
+            <th>Nome do evento</th>
+            <th>Endereço</th>
+            <th>Data e horário</th>
+            <th>Duração do evento</th>
+            <th>Ações   </th>
         </tr>
-        <% for(var i = 0; i < nome.length; i++) {%>
+        <% for(var i = 0; i < eventos.length; i++) {%>
         <tr>
-            <td><%= CPF[i]%></td>
-            <td><%= nome[i]%></td>
-            <td><%= rg[i]%></td>
-            <td><%= orgao[i]%></td>
-            <td><%= curso[i]%></td>
-            <td><%= semestre[i]%></td>
-            <td><%= avaliacao[i]%></td>
+            <td><%= eventos[i]%></td>
+            <td><%= endereco[i]%></td>
+            <td><%= diaehora[i]%></td>
+            <td><%= duracao[i]%></td>
             <td>
-                <a href="/editprof/?CPF=<%=CPF[i]%>">Editar</a>
+                <a href="/editEvento/?id=<%=id[i]%>">Editar</a>
                
-                <a href="/delprof/?CPF=<%=CPF[i]%>">Deletar</a>
-                <a href="/listalunosimpac/?CPF=<%=CPF[i]%>">Ver alunos impactados</a>
+                <a href="/delevento/?idev=<%=id[i]%>" >Deletar</a>
                
             </td>
         </tr>
         <% } %>
     </table>
     </div>
-        </form>
 </div>
     <p>
       <form align="center" method="get" action="/">
@@ -50,12 +42,12 @@
 
 <script>
 
-    function editProfessor(){
+    function editEvento(){
        
        $.ajax({
         
-        url:"/listaprofessores",
-        type:"post",
+        url:"/listaeventos",
+        type:"POST",
         data:$("#the-form").serialize(),
         success:function(res){
             
@@ -70,17 +62,17 @@
                
                  err +='<li>'+item.msg+'</li>';
             });
-            $(".err-area").html(err);    
+            $(".err-area").html(err);
             return false;
         }
         
        });
     }
     
-    function deleteProfessor(user_id){
+    function deleteEvento(user_id){
     
         $.ajax({
-            url:"/listaprofessores/"+user_id,
+            url:"/delevento/?idev="+user_id,
             type: 'POST',
             success: function(res) {
                 

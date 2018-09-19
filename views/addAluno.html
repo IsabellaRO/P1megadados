@@ -6,13 +6,13 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"> </script>
     <script>
         $(document).ready(function(){
-        var nome, nascimento, projeto, colegio;
+        var nome, nascimento, projeto, colégio;
         $("#submit").click(function(){
           nome=$("#nome").val();
           nascimento=$("#nascimento").val();
           projeto=$("#projeto").val();
-          colegio=$("#colegio").val();
-          $.post("http://localhost:3000/addaluno",{nome: nome, nascimento: nascimento, projeto: projeto, colegio: colegio}, function(data){
+          colégio=$("#colégio").val();
+          $.post("http://localhost:3000/addaluno",{nome: nome, nascimento: nascimento, projeto: projeto, colégio: colégio}, function(data){
             if(data==='done')
               {
                 alert("add success");
@@ -25,19 +25,21 @@
 
 <body>
     <h1>Adicionar novo aluno</h1>
-    <form method="POST" action="/addaluno">
         <label for="nome"> Nome</label><br>
         <input type="TEXT" name="nome" id="nome" size="40" placeholder="Nome completo"><br>
         <label for="nascimento"> Data de nascimento</label><br>
         <input type="TEXT" name="nascimento" id="nascimento" size="40" placeholder="AAAA/MM/DD"><br>
         <label for="projeto"> Projeto</label><br>
         <input type="TEXT" id="projeto" size="40" placeholder="Projeto do aluno"><br>
-        <label for="colegio"> Colégio</label><br>
-        <input type="TEXT" id="colegio" size="40" placeholder="Colégio do aluno"><br>
+        <label for="colégio"> Colégio</label><br>
+        <input type="TEXT" id="colégio" size="40" placeholder="Colégio do aluno"><br>
         <br>
-        <input type="submit" id="submit" value="Salvar">
-        <p>
-            <button type="submit">Cancelar</button>
+        <form method="get" action="/listalunos">
+    <input type="button" id="submit" value="Salvar">
+    </form>
+    <p>
+    <form method="get" action="/">
+      <button type="submit">Página Inicial</button>
     </form>
 </body>
 

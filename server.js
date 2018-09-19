@@ -23,7 +23,7 @@ app.get('/', function (req, res) {
     res.sendFile('views/main.html' , { root : __dirname});
  });
 
-//CREATES
+////////// CREATES
 app.get("/addaluno", function (req, res) {
     connection.query("SELECT * FROM Alunos", function (error, results, fields) {
         if (error) throw error;
@@ -47,8 +47,8 @@ app.post("/addaluno", function (req, res) {
     
     connection.query("INSERT INTO Alunos SET ?",     novo_aluno, function (error, results, fields) {   
         if (error) throw error;
-        //res.redirect('listaalunos');
     });
+    res.redirect('/listalunos');
 })
 
 app.get("/addprofessor", function (req, res) {
@@ -77,7 +77,7 @@ app.post("/addprofessor", function (req, res) {
     
     connection.query("INSERT INTO Professores SET ?", novo_professor, function (error, results, fields) {   
         if (error) throw error;
-        //res.redirect('listaprofessores');
+        //res.redirect('listprofessores');
     });
 })
 
@@ -104,7 +104,7 @@ app.post("/addevento", function (req, res) {
     
     connection.query("INSERT INTO Eventos SET ?", novo_evento, function (error, results, fields) {   
         if (error) throw error;
-        //res.redirect('listaeventos');
+        //res.redirect('listeventos');
     });
 })
 
@@ -130,19 +130,43 @@ app.post("/addworkshop", function (req, res) {
     console.log(novo_workshop)
     
     connection.query("INSERT INTO Workshops SET ?", novo_workshop, function (error, results, fields) {
-    //res.redirect('listaworkshops');
+    //res.redirect('listworkshops');
     });
 })
 
-///////////////////////  GET
-
-
+//////////////  GET
 app.get("/listalunos", function (req, res) {
     connection.query("SELECT * FROM Alunos", function (error, results, fields) {
         if (error) throw error;
-        const alunos = results;
-          console.log(alunos)
-        res.render('listAlunos', {alunos});
+
+        var id = [];
+        var alunos = [];
+        var nascimento = [];
+        var projeto = [];
+        var colégio = [];
+        var idAula = [];
+
+        for (var i = 0; i < results.length; i++) {
+            id.push(results[i].idAluno);
+            alunos.push(results[i].nome);
+            var date = new Date(results[i].nascimento);
+            var year = date.getFullYear();
+            var month = date.getMonth() + 1 //getMonth is zero based;
+            var day = date.getDate();
+            var nascformat = day + "/" + month + "/" + year;
+            nascimento.push(nascformat);
+            projeto.push(results[i].projeto);
+            colégio.push(results[i].colégio);
+            idAula.push(results[i].idAula);
+        }
+        console.log(alunos, nascimento, projeto, colégio);
+        res.render('listAlunos', {
+            id: id,
+            alunos: alunos,
+            nascimento: nascimento,
+            projeto: projeto,
+            colégio: colégio
+        });
 
     })
 })
@@ -193,9 +217,7 @@ app.get("/workshops", function (req, res) {
     })
 })
 
-// app.get('/', function (req, res) {
-//     res.json({ a: 1 });
-// });
+//////// UPDATE
 
 app.listen(port, function () {
     console.log('listening on port:', port)

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="/../css/style.css">
+    </head>
+<body>
+<div class="data-table">
+    <table border="1" cellpadding="7" cellspacing="7" align="center">
+        <tr>
+            <th>Nome do aluno</th>
+            <th>Data de nascimento</th>
+            <th>Projeto</th>
+            <th>Colégio</th>
+            <th>Ações   </th>
+        </tr>
+        <% for(var i = 0; i < alunos.length; i++) {%>
+        <tr>
+            <td><%= alunos[i]%></td>
+            <td><%= nascimento[i]%></td>
+            <td><%= projeto[i]%></td>
+            <td><%= colégio[i]%></td>
+            <td>
+                <a class="a-inside edit" href="/editAluno/<%=id[i]%>">Editar</a>
+               
+                <a class="a-inside delete" href="javascript:void(0)" onClick="deleteAluno(<%=id[i]%>)">Deletar</a>
+               
+            </td>
+        </tr>
+        <% } %>
+    </table>
+    </div>
+        </form>
+</div>
+<div class="page-data">
+     <ul class="err-area"></ul>
+</div>
+
+<script>
+
+    function editAluno(){
+       
+       $.ajax({
+        
+        url:"/listalunos",
+        type:"post",
+        data:$("#the-form").serialize(),
+        success:function(res){
+            
+            window.location.reload();
+            return false;
+        },
+        error:function(xhr, status, error){
+            
+            console.log(xhr.responseText);
+            var err = '';
+            $.each(JSON.parse(xhr.responseText) , function(i, item) {
+               
+                 err +='<li>'+item.msg+'</li>';
+            });
+            $(".err-area").html(err);    
+            return false;
+        }
+        
+       });
+    }
+    
+    function deleteAluno(user_id){
+    
+        $.ajax({
+            url:"/listalunos/"+user_id,
+            type: 'DELETE',
+            success: function(res) {
+                
+                window.location.reload();
+                return false;
+            },
+            error:function(xhr, status, error){
+            
+                console.log(xhr.responseText);
+                alert("Error deleting");
+                return false;
+            }
+        });
+    }
+
+</script>
+</body>
+</html>
+
+</body>
+
+</html>

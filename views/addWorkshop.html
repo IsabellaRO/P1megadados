@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adicionar novo workshop</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var nome, objetivos, duracao;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          objetivos=$("#objetivos").val();
+          duracao=$("#duracao").val();
+          $.post("http://localhost:3000/addworkshop",{nome: nome, objetivos: objetivos, duracao: duracao}, function(data){
+            if(data==='done')
+              {
+                alert("add success");
+              }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Adicionar novo workshop</h1>
+    <label for="nome"> Nome</label><br>
+    <input type="TEXT" name="nome" id="nome" size="40" placeholder="Nome completo"><br>
+
+    <label for="objetivos">Objetivos de Aprendizado</label><br>
+    <input type="TEXT" name="objetivos" id="objetivos" size="40" placeholder="Objetivos de Aprendizado"><br>
+
+    <label for="duracao">Duração do Workshop</label><br>
+    <input type="TEXT" name="duracao" id="duracao" size="40" placeholder="02:00:00"><br>
+
+    <br>
+    <br>
+    <input type="button" id="submit" value="Salvar">
+  </body>
+</html>

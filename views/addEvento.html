@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adicionar novo evento</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var nome, endereco, diaehora, duracao;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          endereco=$("#endereco").val();
+          diaehora=$("#diaehora").val();
+          duracao=$("#duracao").val();
+          $.post("http://localhost:3000/addevento",{nome: nome, endereco: endereco, diaehora: diaehora, duracao: duracao}, function(data){
+            if(data==='done')
+              {
+                alert("add success");
+              }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Adicionar novo evento</h1>
+    <label for="nome"> Nome</label><br>
+    <input type="TEXT" name="nome" id="nome" size="40" placeholder="Nome completo"><br>
+    <label for="endereco"> Endereço do evento</label><br>
+    <input type="TEXT" id="endereco" size="40" placeholder="Endereço do evento"><br>
+    <label for="diaehora"> Data e horário do evento</label><br>
+    <input type="text" name="diaehora" id="diaehora" size="40" placeholder="AAAA/MM/DD 12:00:00"><br>
+    <label for="duracao"> Duração do evento</label><br>
+    <input type="text" id="duracao" size="40" placeholder="12:00:00"><br>
+    <br>
+    <br>
+    <input type="button" id="submit" value="Salvar">
+  </body>
+</html>

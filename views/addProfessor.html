@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Adicionar novo professor</title>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js">  </script>
+    <script>
+      $(document).ready(function(){
+        var nome, CPF, rg, orgao, curso, semestre, avaliacao;
+        $("#submit").click(function(){
+          nome=$("#nome").val();
+          CPF=$("#CPF").val();
+          rg=$("#rg").val();
+          orgao=$("#orgao").val();
+          curso=$("#curso").val();
+          semestre=$("#semestre").val();
+          avaliacao=$("#avaliacao").val();
+          $.post("http://localhost:3000/addprofessor",{nome: nome, CPF: CPF, rg: rg, orgao: orgao, curso: curso, semestre: semestre, avaliacao: avaliacao}, function(data){
+            if(data==='done')
+              {
+                alert("add success");
+              }
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <h1>Adicionar novo professor</h1>
+    <label for="nome"> Nome</label><br>
+    <input type="TEXT" name="nome" id="nome" size="40" placeholder="Nome completo"><br>
+
+    <label for="CPF">CPF</label><br>
+    <input type="number" name="CPF" id="CPF" size="40" placeholder="CPF, apenas números"><br>
+
+    <label for="rg">RG</label><br>
+    <input type="number" name="rg" id="rg" size="40" placeholder="RG, apenas números"><br>
+
+    <label for="orgao">Órgão Emissor</label><br>
+    <input type="TEXT" name="orgao" id="orgao" size="40" placeholder="órgão emissor"><br>
+
+    <label for="curso">Curso</label><br>
+    <input type="TEXT" name="curso" id="curso" size="40" placeholder="Curso de formação ou em andamento"><br>
+
+    <label for="semestre">Semestre</label><br>
+    <input type="number" name="semestre" id="semestre" size="40" placeholder="Semestre atual"><br>
+
+    <label for="avaliacao">Avaliação</label><br>
+    <input type="number" name="avaliacao" id="avaliacao" size="40" placeholder="Avaliação média do professor"><br>
+
+    <br>
+    <br>
+    <input type="button" id="submit" value="Salvar">
+  </body>
+</html>

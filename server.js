@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require("body-parser");
 const port = 3000;
 
+app.set('view engine', 'ejs');
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -18,32 +19,115 @@ const connection = mysql.createConnection({
     database: "dbtechedu"
 })
 
+app.get('/', function (req, res) {
+    res.sendFile('views/main.html' , { root : __dirname});
+ });
 
+//CREATES
 app.get("/addaluno", function (req, res) {
     connection.query("SELECT * FROM Alunos", function (error, results, fields) {
         if (error) throw error;
         const alunos = results;
         //   console.log(Alunos)
-        res.sendFile('views/addAluno.html' , { root : __dirname});
-       // res.sendfile("views/index.html");
+        res.sendFile('views/addAluno.html', {
+            root: __dirname
+        });
+        // res.sendfile("views/index.html");
     })
 })
 
 app.post("/addaluno", function (req, res) {
-    var nome = req.body.nome;
-    var nascimento = req.body.nascimento;
-    var projeto = req.body.projeto;
-    var colegio = req.body.colegio;
-    console.log(nome, nascimento, projeto, colegio)
-    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
-        // if (error) throw error;
-        // const alunos = results;
+    var novo_aluno = {
+        nome: req.body.nome,
+        nascimento: req.body.nascimento,
+        projeto: req.body.projeto,
+        colégio: req.body.colegio
+    };
+    console.log(novo_aluno)
+    
+    connection.query("INSERT INTO Alunos SET ?",     novo_aluno, function (error, results, fields) {   
+        if (error) throw error;
+        //res.redirect('listaalunos');
+    });
+})
+
+app.get("/addprofessor", function (req, res) {
+    connection.query("SELECT * FROM Professores", function (error, results, fields) {
+        if (error) throw error;
+        const professores = results;
         //   console.log(Alunos)
-        // res.sendFile('views/index.html', {
-            // root: __dirname
-        // });
+        res.sendFile('views/addProfessor.html', {
+            root: __dirname
+        });
         // res.sendfile("views/index.html");
-    // })
+    })
+})
+
+app.post("/addprofessor", function (req, res) {
+    var nome = req.body.nome;
+    var CPF = req.body.CPF;
+    var rg = req.body.rg;
+    var orgao = req.body.orgao;
+    var curso = req.body.curso;
+    var semestre = req.body.semestre;
+    var avaliacao = req.body.avaliacao;
+    console.log(nome, CPF, rg, orgao, curso, semestre, avaliacao)
+    res.redirect('listaprofessores');
+})
+
+app.get("/addevento", function (req, res) {
+        connection.query("SELECT * FROM Eventos", function (error, results, fields) {
+        if (error) throw error;
+        const eventos = results;
+        //   console.log(Alunos)
+        res.sendFile('views/addEvento.html', {
+            root: __dirname
+        });
+        // res.sendfile("views/index.html");
+    })
+})
+
+app.post("/addevento", function (req, res) {
+    var nome = req.body.nome;
+    var endereco = req.body.endereco;
+    var diaehora = req.body.diaehora;
+    var duracao = req.body.duracao;
+    console.log(nome, endereco, diaehora, duracao)
+    res.redirect('listaeventos');
+})
+
+
+app.get("/addworkshop", function (req, res) {
+    connection.query("SELECT * FROM Workshops", function (error, results, fields) {
+        if (error) throw error;
+        const workshops = results;
+        //   console.log(Alunos)
+        res.sendFile('views/addWorkshop.html', {
+            root: __dirname
+        });
+        // res.sendfile("views/index.html");
+    })
+})
+
+app.post("/addworkshop", function (req, res) {
+    var nome = req.body.nome;
+    var objetivos = req.body.objetivos;
+    var duracao = req.body.duracao;
+    console.log(nome, objetivos, duracao)
+    res.redirect('listaworkshops');
+})
+
+///////////////////////  GET
+
+
+app.get("/listalunos", function (req, res) {
+    connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+        if (error) throw error;
+        const alunos = results;
+          console.log(alunos)
+        res.render('listAlunos', {alunos});
+
+    })
 })
 
 app.get("/eventos", function (req, res) {

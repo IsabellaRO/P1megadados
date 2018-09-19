@@ -20,9 +20,7 @@ const connection = mysql.createConnection({
 })
 
 app.get('/', function (req, res) {
-    res.sendFile('views/main.html', {
-        root: __dirname
-    });
+    res.render('main');
 });
 
 
@@ -50,6 +48,36 @@ app.post("/addaluno", function (req, res) {
     console.log(novo_aluno)
 
     connection.query("INSERT INTO Alunos SET ?", novo_aluno, function (error, results, fields) {
+        if (error) throw error;
+    });
+    res.redirect('/listalunos');
+})
+
+
+
+app.get("/editaluno", function (req, res) {
+    let id = req.query.id;
+    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+    //     if (error) throw error;
+    //     const alunos = results;
+    //   console.log(Alunos)
+    res.render('editAluno', {
+        id: id
+    });
+
+})
+
+app.post("/editaluno", function (req, res) {
+    let id = req.query.id;
+    var aluno = {
+        nome: req.body.nome,
+        nascimento: req.body.nascimento,
+        projeto: req.body.projeto,
+        colégio: req.body.colegio
+    };
+    // console.log(aluno)
+
+    connection.query(`UPDATE  Alunos SET ? WHERE idAluno = ?`, [aluno, id], function (error, results, fields) {
         if (error) throw error;
     });
     res.redirect('/listalunos');

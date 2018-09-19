@@ -1,32 +1,32 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <title><%=title%></title>
+        <title>< Editando aluno </title>
         <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
         <link rel="stylesheet" href="/../css/style.css">
     </head>
 <body>
-<form method="post" action="" id="the-form">
+<form method="post" action="" action="editaluno/?id=<%=id%>">
     <table cellpadding="11">
     <tr>
-        <td class="label">Nome</td><td>: <input type="text" name="nome" value="<%=alunos%>"></td>
+        <td class="label">Nome</td><td>: <input type="text" name="nome" value=""></td>
      </tr>
     <tr>
-        <td class="label">Nascimento</td><td>: <input type="text" name="nascimento" value="<%=nascimento%>"></td>
+        <td class="label">Nascimento</td><td>: <input type="text" name="nascimento" value=""></td>
      </tr>
       <tr>
-        <td class="label">Projeto</td><td>: <input type="text" name="projeto" value="<%=projeto%>"></td>
+        <td class="label">Projeto</td><td>: <input type="text" name="projeto" value=""></td>
      </tr>
       <tr>
-        <td class="label">Colégio</td><td>: <input type="text" name="colégio" value="<%=colégio%>"></td>
+        <td class="label">Colégio</td><td>: <input type="text" name="colégio" value=""></td>
      </tr>
      <tr>
         <td class="label"></td>
         <td>
-            &nbsp; <input type="button" value="Save" onClick="editAluno()">
         </td>
      </tr>
     </table>
+    <input type="submit" id="submit" value="Salvar">
 </form>
  <script>
     

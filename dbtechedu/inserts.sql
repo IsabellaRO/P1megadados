@@ -63,7 +63,17 @@ INSERT AulaAluno (idAula, idAluno)
 VALUES (1, 1);
 INSERT AulaAluno (idAula, idAluno)
 VALUES (2, 1);
+INSERT AulaAluno (idAula, idAluno)
+VALUES (2, 2);
+INSERT AulaAluno (idAula, idAluno)
+VALUES (1, 3);
+INSERT AulaAluno (idAula, idAluno)
+VALUES (2, 3);
 
 
 INSERT Professores (cpf, nome, curso, semestre, avaliacao, idAula)
 VALUES (37513303821, "Lucas", "Engenharia da Computação", 5, 7.5, 1);
+
+
+INSERT Professores (cpf, nome, curso, semestre, avaliacao, idAula)
+VALUES (37513303888, "Lucas", "Engenharia da Computação", 5, 7.5, 2);

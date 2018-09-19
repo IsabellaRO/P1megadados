@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title><%=title%></title>
+        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="/../css/style.css">
+    </head>
+<body>
+<form method="post" action="" id="the-form">
+    <table cellpadding="11">
+    <tr>
+        <td class="label">Nome</td><td>: <input type="text" name="nome" value="<%=alunos%>"></td>
+     </tr>
+    <tr>
+        <td class="label">Nascimento</td><td>: <input type="text" name="nascimento" value="<%=nascimento%>"></td>
+     </tr>
+      <tr>
+        <td class="label">Projeto</td><td>: <input type="text" name="projeto" value="<%=projeto%>"></td>
+     </tr>
+      <tr>
+        <td class="label">Colégio</td><td>: <input type="text" name="colégio" value="<%=colégio%>"></td>
+     </tr>
+     <tr>
+        <td class="label"></td>
+        <td>
+            &nbsp; <input type="button" value="Save" onClick="editAluno()">
+        </td>
+     </tr>
+    </table>
+</form>
+ <script>
+    
+        function editAluno(){
+           
+           $.ajax({
+            
+            url:"/listalunos/"+<%=id%>,
+            type:"put",
+            data:$("#the-form").serialize(),
+            success:function(res){
+                
+                window.location.href = '/listalunos';
+                return false;
+            },
+            error:function(xhr, status, error){
+                
+                console.log(xhr.responseText);
+                var err = '';
+                $.each(JSON.parse(xhr.responseText) , function(i, item) {
+                   
+                     err +='<li>'+item.msg+'</li>';
+                });
+                $(".err-area").html(err);    
+                return false;
+            }
+            
+           });
+        }
+    
+    </script>
+</body>
+</html>

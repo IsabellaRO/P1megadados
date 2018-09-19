@@ -8,20 +8,24 @@
 <div class="data-table">
     <table border="1" cellpadding="7" cellspacing="7" align="center">
         <tr>
-            <th>Nome do aluno</th>
-            <th>Data de nascimento</th>
-            <th>Projeto</th>
-            <th>Colégio</th>
-            <th>Ações   </th>
+            <th>CPF do professor</th>
+            <th>Nome</th>
+            <th>Órgão</th>
+            <th>Curso</th>
+            <th>Semestre</th>
+            <th>Avaliação</th>
+            <th>Ações</th>
         </tr>
-        <% for(var i = 0; i < alunos.length; i++) {%>
+        <% for(var i = 0; i < nome.length; i++) {%>
         <tr>
-            <td><%= alunos[i]%></td>
-            <td><%= nascimento[i]%></td>
-            <td><%= projeto[i]%></td>
-            <td><%= colégio[i]%></td>
+            <td><%= CPF[i]%></td>
+            <td><%= nome[i]%></td>
+            <td><%= orgao[i]%></td>
+            <td><%= curso[i]%></td>
+            <td><%= semestre[i]%></td>
+            <td><%= avaliacao[i]%></td>
             <td>
-                <a class="a-inside edit" href="/editAluno/<%=id[i]%>">Editar</a>
+                <a class="a-inside edit" href="/editAluno/<%=CPF[i]%>">Editar</a>
                
                 <a class="a-inside delete" href="javascript:void(0)" onClick="deleteAluno(<%=id[i]%>)">Deletar</a>
                
@@ -32,7 +36,6 @@
     </div>
         </form>
 </div>
-
 <div class="page-data">
      <ul class="err-area"></ul>
 </div>

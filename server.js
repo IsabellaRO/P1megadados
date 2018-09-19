@@ -51,6 +51,16 @@ app.post("/addaluno", function (req, res) {
     res.redirect('/listalunos');
 })
 
+app.post("/delaluno", function (req, res) {
+    let id = req.query.idal;
+    console.log(idal)
+    
+    connection.query("DELETE FROM Alunos WHERE idAluno = ?", idal, function (error, results, fields) {   
+        if (error) throw error;
+    });
+    res.redirect('/listalunos');
+})
+
 app.get("/addprofessor", function (req, res) {
     connection.query("SELECT * FROM Professores", function (error, results, fields) {
         if (error) throw error;
@@ -171,7 +181,7 @@ app.get("/listalunos", function (req, res) {
     })
 })
 
-app.get("/eventos", function (req, res) {
+app.get("/listaeventos", function (req, res) {
     connection.query("SELECT * FROM Eventos", function (error, results, fields) {
         if (error) throw error;
         const eventos = results;
@@ -183,25 +193,54 @@ app.get("/eventos", function (req, res) {
     })
 })
 
-app.get("/professores", function (req, res) {
+app.get("/listaprofessores", function (req, res) {
     //Getting key
-    let key = req.query.key;
-
-    // connection.query("SELECT * FROM Professores", function (error, results, fields) {
-    //   if (error) throw error;
-    //   const professores = results;
-    //   res.json(results)
-    // })
-
-    connection.query(`SELECT * FROM Professores WHERE avaliacao > ${parseFloat(key)}`, function (error, results, fields) {
+    // let key = req.query.key;
+    connection.query("SELECT * FROM Professores", function (error, results, fields) {
         if (error) throw error;
-        const professores = results;
-        console.log(professores);
-        res.json(results)
+
+        var cpf = [];
+        var nome = [];
+        var rg = [];
+        var orgao = [];
+        var curso = [];
+        var semestre = [];
+        var idWorkshop = [];
+        var idAula = [];
+        var avaliacao = [];
+
+        for (var i = 0; i < results.length; i++) {
+            cpf.push(results[i].cpf);
+            nome.push(results[i].nome);
+            orgao.push(results[i].orgao);
+            curso.push(results[i].curso);
+            semestre.push(results[i].semestre);
+            idWorkshop.push(results[i].idWorkshop);
+            idAula.push(results[i].idAula);
+            avaliacao.push(results[i].avaliacao);
+        }
+        //   if (error) throw error;
+        //   const professores = results;
+        //   res.json(results)
+        // })
+    // connection.query(`SELECT * FROM Professores WHERE avaliacao > ${parseFloat(key)}`, function (error, results, fields) {
+        // const professores = results;
+        // console.log(professores);
+        // res.json(results)
+        res.render('listProf', {
+            cpf: cpf,
+            nome: nome,
+            orgao: orgao,
+            curso: curso,
+            semestre: semestre,
+            idWorkshop: idWorkshop,
+            idAula: idAula,
+            avaliacao: avaliacao
+        });
     })
 })
 
-app.get("/aulas", function (req, res) {
+app.get("/listaaulas", function (req, res) {
     connection.query("SELECT * FROM Aulas", function (error, results, fields) {
         if (error) throw error;
         const professores = results;
@@ -209,7 +248,7 @@ app.get("/aulas", function (req, res) {
     })
 })
 
-app.get("/workshops", function (req, res) {
+app.get("/listaworkshops", function (req, res) {
     connection.query("SELECT * FROM Workshops", function (error, results, fields) {
         if (error) throw error;
         const professores = results;

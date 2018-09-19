@@ -43,7 +43,7 @@
        $.ajax({
         
         url:"/listalunos",
-        type:"post",
+        type:"POST",
         data:$("#the-form").serialize(),
         success:function(res){
             
@@ -58,7 +58,7 @@
                
                  err +='<li>'+item.msg+'</li>';
             });
-            $(".err-area").html(err);    
+            $(".err-area").html(err);
             return false;
         }
         
@@ -68,8 +68,8 @@
     function deleteAluno(user_id){
     
         $.ajax({
-            url:"/listalunos/"+user_id,
-            type: 'DELETE',
+            url:"/delalunos/?idal"+user_id,
+            type: 'POST',
             success: function(res) {
                 
                 window.location.reload();

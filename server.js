@@ -64,15 +64,21 @@ app.get("/addprofessor", function (req, res) {
 })
 
 app.post("/addprofessor", function (req, res) {
-    var nome = req.body.nome;
-    var CPF = req.body.CPF;
-    var rg = req.body.rg;
-    var orgao = req.body.orgao;
-    var curso = req.body.curso;
-    var semestre = req.body.semestre;
-    var avaliacao = req.body.avaliacao;
-    console.log(nome, CPF, rg, orgao, curso, semestre, avaliacao)
-    res.redirect('listaprofessores');
+    var novo_professor = {
+        nome: req.body.nome,
+        CPF: req.body.CPF,
+        rg: req.body.rg,
+        orgao: req.body.orgao,
+        curso: req.body.curso,
+        semestre: req.body.semestre,
+        avaliacao: req.body.avaliacao
+    };
+    console.log(novo_professor)
+    
+    connection.query("INSERT INTO Professores SET ?", novo_professor, function (error, results, fields) {   
+        if (error) throw error;
+        //res.redirect('listaprofessores');
+    });
 })
 
 app.get("/addevento", function (req, res) {
@@ -88,12 +94,18 @@ app.get("/addevento", function (req, res) {
 })
 
 app.post("/addevento", function (req, res) {
-    var nome = req.body.nome;
-    var endereco = req.body.endereco;
-    var diaehora = req.body.diaehora;
-    var duracao = req.body.duracao;
-    console.log(nome, endereco, diaehora, duracao)
-    res.redirect('listaeventos');
+    var novo_evento = {
+    nome: req.body.nome,
+    endereco: req.body.endereco,
+    diaehora: req.body.diaehora,
+    duracao: req.body.duracao
+    };
+    console.log(novo_evento)
+    
+    connection.query("INSERT INTO Eventos SET ?", novo_evento, function (error, results, fields) {   
+        if (error) throw error;
+        //res.redirect('listaeventos');
+    });
 })
 
 
@@ -110,11 +122,16 @@ app.get("/addworkshop", function (req, res) {
 })
 
 app.post("/addworkshop", function (req, res) {
-    var nome = req.body.nome;
-    var objetivos = req.body.objetivos;
-    var duracao = req.body.duracao;
-    console.log(nome, objetivos, duracao)
-    res.redirect('listaworkshops');
+    var novo_workshop = {
+    nome: req.body.nome,
+    objetivos: req.body.objetivos,
+    duracao: req.body.duracao
+    };
+    console.log(novo_workshop)
+    
+    connection.query("INSERT INTO Workshops SET ?", novo_workshop, function (error, results, fields) {
+    //res.redirect('listaworkshops');
+    });
 })
 
 ///////////////////////  GET

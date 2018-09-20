@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>< Editar evento</title>
+        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="/../css/style.css">
+    </head>
+<body>
+<form method="post" action="" action="editevento/?id=<%=id%>">
+    <table cellpadding="11">
+    <tr>
+        <td class="label">Nome do evento</td><td>: <input type="text" name="nome" value=""></td>
+     </tr>
+    <tr>
+        <td class="label">Endereço</td><td>: <input type="text" name="endereco" value=""></td>
+     </tr>
+      <tr>
+        <td class="label">Data e Horário</td><td>: <input type="text" name="diaehora" value=""></td>
+     </tr>
+      <tr>
+        <td class="label">Duração do evento</td><td>: <input type="text" name="duracao" value=""></td>
+     </tr>
+     <tr>
+        <td class="label"></td>
+        <td>
+        </td>
+     </tr>
+    </table>
+    <input type="submit" id="submit" value="Salvar">
+</form>
+<p>
+    <form method="get" action="/listaeventos">
+      <button type="submit">Página Inicial</button>
+    </form>
+ <script>
+    
+        function editEvento(){
+           
+           $.ajax({
+            
+            url:"/listaeventos/"+<%=id%>,
+            type:"put",
+            data:$("#the-form").serialize(),
+            success:function(res){
+                
+                window.location.href = '/listaeventos';
+                return false;
+            },
+            error:function(xhr, status, error){
+                
+                console.log(xhr.responseText);
+                var err = '';
+                $.each(JSON.parse(xhr.responseText) , function(i, item) {
+                   
+                     err +='<li>'+item.msg+'</li>';
+                });
+                $(".err-area").html(err);    
+                return false;
+            }
+            
+           });
+        }
+    
+    </script>
+</body>
+</html>

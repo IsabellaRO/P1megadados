@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>< Editar workshop</title>
+        <script type="text/javascript" src="/../js/jquery-1.10.2.min.js"></script>
+        <link rel="stylesheet" href="/../css/style.css">
+    </head>
+<body>
+<form method="post" action="" action="editaworkshop/?id=<%=id%>">
+    <table cellpadding="11">
+    <tr>
+        <td class="label">Nome do workshop</td><td>: <input type="text" name="nome" value=""></td>
+     </tr>
+    <tr>
+        <td class="label">Objetivos de aprendizado</td><td>: <input type="text" name="objetivos" value=""></td>
+     </tr>
+      <tr>
+        <td class="label">Duração do workshop</td><td>: <input type="text" name="duracao" value=""></td>
+     </tr>
+        <td class="label"></td>
+        <td>
+        </td>
+     </tr>
+    </table>
+    <input type="submit" id="submit" value="Salvar">
+</form>
+<p>
+    <form method="get" action="/listaworkshops">
+      <button type="submit">Página Inicial</button>
+    </form>
+ <script>
+    
+        function editWorkshop(){
+           
+           $.ajax({
+            
+            url:"/listaworkshops/"+<%=id%>,
+            type:"put",
+            data:$("#the-form").serialize(),
+            success:function(res){
+                
+                window.location.href = '/listaworkshops';
+                return false;
+            },
+            error:function(xhr, status, error){
+                
+                console.log(xhr.responseText);
+                var err = '';
+                $.each(JSON.parse(xhr.responseText) , function(i, item) {
+                   
+                     err +='<li>'+item.msg+'</li>';
+                });
+                $(".err-area").html(err);    
+                return false;
+            }
+            
+           });
+        }
+    
+    </script>
+</body>
+</html>

@@ -377,7 +377,7 @@ app.get("/editprof", function (req, res) {
 })
 
 app.post("/editprof", function (req, res) {
-    let idpr = req.query.id;
+    let idpr = req.query.CPF;
     var professor = {
         nome: req.body.nome,
         rg: req.body.rg,
@@ -393,6 +393,62 @@ app.post("/editprof", function (req, res) {
     });
     res.redirect('/listaprofessores');
 })
+
+app.get("/editevento", function (req, res) {
+    let id = req.query.id;
+    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+    //     if (error) throw error;
+    //     const alunos = results;
+    //   console.log(Alunos)
+    res.render('editEvento', {
+        id: id
+    });
+
+})
+
+app.post("/editevento", function (req, res) {
+    let id = req.query.id;
+    var evento = {
+        nome: req.body.nome,
+        endereco: req.body.endereco,
+        diaehora: req.body.diaehora,
+        duracao: req.body.duracao
+    };
+    console.log(evento)
+
+    connection.query(`UPDATE Eventos SET ? WHERE idEvento = ?`, [evento, id], function (error, results, fields) {
+        if (error) throw error;
+    });
+    res.redirect('/listaeventos');
+})
+
+app.get("/editworkshop", function (req, res) {
+    let id = req.query.id;
+    // connection.query("SELECT * FROM Alunos", function (error, results, fields) {
+    //     if (error) throw error;
+    //     const alunos = results;
+    //   console.log(Alunos)
+    res.render('editWorkshop', {
+        id: id
+    });
+
+})
+
+app.post("/editworkshop", function (req, res) {
+    let id = req.query.id;
+    var workshop = {
+        nome: req.body.nome,
+        objetivos: req.body.objetivos,
+        duracao: req.body.duracao
+    };
+    console.log(workshop)
+
+    connection.query(`UPDATE Workshops SET ? WHERE idWorkshop = ?`, [workshop, id], function (error, results, fields) {
+        if (error) throw error;
+    });
+    res.redirect('/listaworkshops');
+})
+
 
 ////////// DELETE
 app.get("/delaluno", function (req, res) {
